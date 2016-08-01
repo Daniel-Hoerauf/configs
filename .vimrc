@@ -20,6 +20,9 @@ set nocompatible
 " and for plugins that are filetype specific.
 filetype off
 
+" Plugin Settings
+let g:pymode_lint_ignore="E501,E303,E302,W0612"
+
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
@@ -40,7 +43,8 @@ filetype plugin indent on
  
 " Enable syntax highlighting
 syntax on
-colorscheme zenburn 
+set t_Co=256
+colorscheme elflord 
  
 "------------------------------------------------------------
 " Must have options {{{1
@@ -151,8 +155,8 @@ set pastetoggle=<F11>
  
 " Indentation settings for using 4 spaces instead of tabs.
 " Do not change 'tabstop' from its default value of 8 with this setup.
-set shiftwidth=4
-set softtabstop=4
+set shiftwidth=2
+set softtabstop=2
 set expandtab
 
 " Enable Folding
@@ -162,7 +166,7 @@ set foldlevel=99
 " Indentation settings for using hard tabs for indent. Display tabs as
 " four characters wide.
 "set shiftwidth=4
-"set tabstop=4
+set tabstop=4
  
  
 "------------------------------------------------------------
@@ -181,6 +185,7 @@ map Y y$
 " next search
 " nnoremap <C-L> :nohl<CR><C-L>
 
+
 "split navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -188,3 +193,12 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H> 
 
 "------------------------------------------------------------
+" Commands {{{1
+"
+" Useful Commands
+
+" Clear search highlight
+nnoremap <C-c> :let @/ = ""
+
+" Display Current Time
+map <F2> :echo 'Current time is ' . strftime('%c')<CR>

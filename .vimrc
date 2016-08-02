@@ -19,6 +19,20 @@ set nocompatible
 " contents. Use this to allow intelligent auto-indenting for each filetype,
 " and for plugins that are filetype specific.
 filetype off
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+" execute "set rtp+=" . g:opamshare . "/merlin/vim"
+if !empty(system('which opam'))
+  let s:ocamlmerlin=substitute(system('opam config var share'),'\n$','','') . "/merlin"
+  execute "set rtp+=".s:ocamlmerlin."/vim"
+  execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
+  let g:syntastic_ocaml_checkers=['merlin']
+
+  let s:reasondir=substitute(system('opam config var share'),'\n$','','') . "/reason"
+  execute "set rtp+=".s:reasondir."/editorSupport/VimReason"
+  let g:syntastic_reason_checkers=['merlin']
+else
+
+endif
 
 " Plugin Settings
 let g:pymode_lint_ignore="E501,E303,E302,W0612"
@@ -27,6 +41,8 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'MartinLafreniere/vim-PairTools'
+Plugin 'scrooloose/syntastic'
 Plugin 'fatih/vim-go'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'klen/python-mode'
@@ -202,3 +218,21 @@ nnoremap <C-c> :let @/ = ""
 
 " Display Current Time
 map <F2> :echo 'Current time is ' . strftime('%c')<CR>
+
+
+autocmd FileType reason let g:pairtools_reason_pairclamp = 1
+autocmd FileType reason let g:pairtools_reason_tagwrench = 0
+autocmd FileType reason let g:pairtools_reason_jigsaw    = 1
+autocmd FileType reason let g:pairtools_reason_autoclose  = 1
+autocmd FileType reason let g:pairtools_reason_forcepairs = 0
+autocmd FileType reason let g:pairtools_reason_closepairs = "(:),[:],{:}" . ',":"'
+autocmd FileType reason let g:pairtools_reason_smartclose = 1
+autocmd FileType reason let g:pairtools_reason_smartcloserules = '\w,(,&,\*'
+autocmd FileType reason let g:pairtools_reason_antimagic  = 1
+autocmd FileType reason let g:pairtools_reason_antimagicfield  = "Comment,String,Special"
+autocmd FileType reason let g:pairtools_reason_pcexpander = 1
+autocmd FileType reason let g:pairtools_reason_pceraser   = 1
+autocmd FileType reason let g:pairtools_reason_tagwrenchhook = 'tagwrench#BuiltinNoHook'
+autocmd FileType reason let g:pairtools_reason_twexpander = 0
+autocmd FileType reason let g:pairtools_reason_tweraser   = 0
+autocmd FileType reason let g:pairtools_reason_apostrophe = 0

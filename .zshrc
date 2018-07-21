@@ -10,6 +10,8 @@ export ZSH=/home/doc/.oh-my-zsh
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="xiong-chiamiov-plus"
+ZSH_THEME="alien"
+# ZSH_THEME="agnosterzak"
 
 # Uncomment the following line to use case-sensitive completion.
 CASE_SENSITIVE="true"
@@ -22,7 +24,7 @@ CASE_SENSITIVE="true"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=7
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -103,6 +105,7 @@ alias mkdir='mkdir -p -v'
 alias nano='nano -w'
 alias ping='ping -c 5'
 alias dmesg='dmesg -HL'
+alias feh='feh --scale-down -d -x'
 
 alias dfort='sudo sysctl -w kernel.yama.ptrace_scope=0 && dwarffortress && sudo sysctl -w kernel -w kernel.yama.ptrace=1'
 
@@ -113,17 +116,28 @@ alias hist='history | grep'         # requires an argument
 alias openports='ss --all --numeric --processes --ipv4 --ipv6'
 alias pgg='ps -Af | grep'           # requires an argument
 alias weather='curl wttr.in/Charlottesville,VA'
-alias washoo='sudo iwconfig wlp8s0 essid wahoo'
+alias wahoo='sudo iwconfig wlp8s0 essid wahoo'
 
 #Environment variables
 export LESS="-RMsi"
 export HISTCONTROL=ignoredups
 export PATH="$PATH:/home/doc/bin:$GOPATH/bin"
+export PATH="$PATH:/home/doc/.gem/ruby/2.4.0/bin"
 export XDG_DESKTOP_DIR="~/Desktop"
+export RANGER_LOAD_DEFAULT_RC=FALSE
 
 function pacmirror {
   sudo rm /etc/pacman.d/mirrorlist.old
   sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
-  sudo vim /etc/pacman.d/mirrorlist.pacnew
+  sudoedit /etc/pacman.d/mirrorlist.pacnew
   sudo mv /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
 }
+
+function mkcdir {
+  mkdir -p -v $1;
+  cd $1
+}
+
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+fortune -o | cowsay -f $(ls /usr/share/cows/ | shuf -n 1) | lolcat

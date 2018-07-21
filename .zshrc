@@ -10,7 +10,7 @@ export ZSH=/home/doc/.oh-my-zsh
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="xiong-chiamiov-plus"
-ZSH_THEME="alien"
+# ZSH_THEME="alien"
 # ZSH_THEME="agnosterzak"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -106,8 +106,6 @@ alias nano='nano -w'
 alias ping='ping -c 5'
 alias dmesg='dmesg -HL'
 alias feh='feh --scale-down -d -x'
-
-alias dfort='sudo sysctl -w kernel.yama.ptrace_scope=0 && dwarffortress && sudo sysctl -w kernel -w kernel.yama.ptrace=1'
 
 ## New commands
 alias da='date "+%A, %B %d, %Y [%T]"'
